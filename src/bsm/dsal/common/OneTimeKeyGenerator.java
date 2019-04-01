@@ -1,3 +1,7 @@
+/**
+* @author Weerayut Wichaidit
+* @version 2018-08-21
+*/
 package bsm.dsal.common;
 
 import java.math.BigInteger;
