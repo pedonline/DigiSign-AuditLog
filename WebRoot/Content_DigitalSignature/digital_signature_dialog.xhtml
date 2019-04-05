@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition template="/Content_Share/layoutDialog.xhtml">	
+	
+	<ui:define name="content">
+	<h:form id="digiSignForm" enctype="multipart/form-data" >
+		<h:head>
+			<title>ลงนาม</title>
+		</h:head>
+		<h:outputScript library="js" name="jquery.ui.datepicker.ext.be.js" />
+		<h:outputScript library="js" name="jquery.ui.datepicker-th.js" />				
+		<h:outputScript library="webcrypto" name="webcrypto.js"/>
+		<p:panel>
+		<h:panelGroup id="digiSignHiddenData">
+			<h:inputHidden value="#{digiSignDialog.digiSignInformation.digisignAlias}"  id="digisignAlias" widgetVar="digisignAlias"/>
+			<h:inputHidden value="#{digiSignDialog.digiSignInformation.digisignOTK}"  id="digisignOTK" widgetVar="digisignOTK"/>
+			<h:inputHidden value="#{digiSignDialog.digiSignInformation.digisignCertificate}"  id="digisignCertificate" widgetVar="digisignCertificate"/>
+		</h:panelGroup>
+			<h:panelGrid columns="2" >
+				<h:panelGrid columns="1" border="0" style="padding:no;"  >
+				        <h:inputFile  widgetVar="filep12" id="filep12" mode="simple" skinSimple="true"/>
+				        <h:panelGrid columns="2"  styleClass="gInput" >
+				            <h:outputLabel for="keystorepassword" value="Keystore Password:" style="margin-left:0.2em;color:blue;"/>
+				            <p:password widgetVar="keystorepassword" id="keystorepassword" required="true" label="password" />
+				 		</h:panelGrid>
+				        <h:panelGrid columns="2" styleClass="gInput" >
+				            <h:outputLabel for="username" value="User name:" style="margin-left:0.2em;color:blue;"/>
+				            <p:inputText  widgetVar="username" id="username" required="true" label="username" />
+				 		</h:panelGrid>
+				 		 <h:panelGrid columns="2"  styleClass="gInput" >
+				            <h:outputLabel for="password" value="Password:" style="margin-left:0.2em;color:blue;"/>
+				            <p:password widgetVar="password" id="password" required="true" label="password" />
+				 		</h:panelGrid>
+				           
+				        </h:panelGrid>
+			</h:panelGrid>
+			<h:panelGroup columns="1" style="display:block; text-align:center">
+				<p:commandButton type="button" value="ลงนาม"  onclick="DigiSignStart();Sign();" update="digiSignForm"/>
+			</h:panelGroup>	
+			<h:panelGrid columns="1" border="0" style="padding:no;">
+				<h:panelGroup style="display:block; text-align:center">
+					<h:graphicImage id="img_status" widgetVar="img_status" value ="/resources/images/certificate_none.png" width="50" />
+				</h:panelGroup>
+				<h:panelGroup style="display:block; text-align:center">
+					<h:outputText value="ยังไม่ลงนาม" widgetVar="sign_status" id="sign_status" />
+				</h:panelGroup>
+				<h:panelGroup style="display:block; text-align:center">
+					<p:inputTextarea widgetVar="description" id="description" cols="40" rows="5" maxlength="1024" disabled="true"/>
+				</h:panelGroup>
+				
+			</h:panelGrid>
+		</p:panel>
+			<h:panelGroup style="display:block; text-align:center">
+				<p:commandButton  id="bt_ok" widgetVar="bt_ok"  value="ตกลง" process="@this"  actionListener="#{digiSignDialog.DialogChooseConfirm}" />
+				<p:commandButton  id="bt_cancel" widgetVar="bt_cancel" value="ยกเลิก" process="@this" actionListener="#{digiSignDialog.DialogChooseCancel}" />  
+			</h:panelGroup>				  
+		<center>
+			<p:messages id="notifyError"  showDetail="false" display="text" autoUpdate="true"/>
+		</center>
+		<div class="pageCode">EC04000104</div>
+	</h:form> 
+	</ui:define>
+	</ui:composition>
+</html>

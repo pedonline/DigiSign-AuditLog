@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition template="/Content_Share/layoutDialog.xhtml">	
+	
+	<ui:define name="content">
+	<h:form id="digiSignConfirmForm" enctype="multipart/form-data" >
+		<h:head>
+			<title>ยืนยัน</title>
+		</h:head>		
+		<p:panel>
+			<h:panelGrid columns="1" border="0" style="padding:no;"  >
+			        <h:panelGrid columns="2" styleClass="gInput" >
+			            <h:outputLabel value="User name:" style="margin-left:0.2em;color:blue;"/>
+			             <h:outputText  value="#{digiSignDialog.digiSignInformation.digisignAlias}" style="margin-left:0.2em;color:blue;"/>
+			 		</h:panelGrid>
+			 		 <h:panelGrid columns="2"  styleClass="gInput" >
+			            <h:outputLabel  value="OTK Left Time:" style="margin-left:0.2em;color:blue;"/>
+			             <h:outputText  value="#{digiSignDialog.digiSignInformation.LeftTime()}" style="margin-left:0.2em;color:blue;"/>
+			 		</h:panelGrid>
+			 		 <h:panelGrid columns="1"  styleClass="gInput" >
+			            <h:outputLabel  value="One Time Key Sign:" style="margin-left:0.2em;color:blue;"/>
+			           <h:panelGrid columns="1" styleClass="gInput">
+							<p:inputTextarea  id="otk" value="#{digiSignDialog.digiSignInformation.digisignOTK}" cols="40" rows="10" disabled="true" />
+						</h:panelGrid>
+			 		</h:panelGrid>   
+			</h:panelGrid>		
+		</p:panel>
+			<h:panelGroup style="display:block; text-align:center">
+				<p:commandButton  id="bt_ok" widgetVar="bt_ok"  value="ตกลง" process="@this"  actionListener="#{digiSignDialog.DialogChooseConfirm}" />
+				<p:commandButton  id="bt_cancel" widgetVar="bt_cancel" value="ยกเลิก" process="@this" actionListener="#{digiSignDialog.DialogChooseCancel}" />  
+			</h:panelGroup>				  
+		<center>
+			<p:messages id="notifyError"  showDetail="false" display="text" autoUpdate="true"/>
+		</center>
+		<div class="pageCode">EC04000104</div>
+	</h:form> 
+	</ui:define>
+	</ui:composition>
+</html>
