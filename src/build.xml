@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<project name="DigiSign-AuditLog" default="main" basedir=".">
+    <description>
+        simple example build file
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="."/>
+  <property name="build" location="../classes"/>
+  <property name="dist"  location="E:/Dropbox/Thesis/MSIT/Development Projects/Auditlog Workspace/DigiSign-AuditLog-api/dist"/>
+  <property name="backup_dist"  location="../../Ant-DigiSign-AuditLog/backup dist"/>
+  <property name="backup_src"  location="../../Ant-DigiSign-AuditLog/backup src"/>
+  <property name="application.name" value="DigiSign-AuditLog"/>
+  <property name="static"  location="../../Ant-DigiSign-AuditLog/static"/>
+  <property name="lib.dir"  location="../lib"/>
+  <property name="lib"  location="../lib"/>
+  <path id="project.class.path">
+   	<fileset dir = "${lib.dir}">
+   		<include name="**/*.jar"/>
+   	</fileset>
+   	<fileset dir = "${lib}">
+   	   	<include name="**/*.jar"/>
+   	</fileset>
+  </path>
+  <target name="backup" description="back up file jar" >
+ 	    <!-- Create the time stamp -->
+		<tstamp>
+	      <format property="touch.time" locale="en" pattern="yyyyMMdd hh.mm.sss"/>
+	  	</tstamp>
+	    <copy todir="${backup_dist}" >
+	  	  <fileset dir="${dist}" />
+	    </copy>
+	    <copy todir="${backup_src}/${DSTAMP}" >
+	  	  <fileset dir="${src}" />
+	    </copy>
+  </target>
+
+  <target name="clean"  depends="backup" description="clean up" >
+	    <!-- Delete the ${build} and ${dist} directory trees -->
+	    <delete dir="${build}"/>
+	    <delete dir="${dist}"/>
+  </target>
+
+  <target name="init" depends="clean">
+	    <!-- Create the build directory structure used by compile -->
+	    <mkdir dir="${build}"/>
+	    <mkdir dir="${dist}"/>
+	    <copy todir="${build}" >
+	  	  <fileset dir="${static}" excludes="**/*.jar" />
+	    </copy>
+  </target>
+
+  <target name="compile" depends="init" description="compile the source " >
+	    <!-- Compile the java code from ${src} into ${build} -->
+  	<javac debug="true" deprecation="true" srcdir="${src}" destdir="${build}">
+	    	<classpath refid="project.class.path"/>
+	    </javac>
+  </target>
+
+  <target name="main" depends="compile" description="generate the distribution" >
+	    <!-- Create the distribution directory -->
+	    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+	    <jar jarfile="${dist}/${application.name}-${DSTAMP}.jar" basedir="${build}"/>
+	    <zip destfile="${dist}/${application.name}_Src-${DSTAMP}.zip" basedir="${src}"/>
+  		<copy todir="${backup_dist}/${touch.time}" >
+  		  	  <fileset dir="${dist}"  includes ="**/*.jar, **/*.zip"/>
+  		</copy>
+  </target>
+</project>
