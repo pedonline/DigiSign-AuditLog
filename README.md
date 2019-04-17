@@ -4,8 +4,7 @@ DigiSign-AuditLog is a web application framework for Digital Signature on Audit 
 
 ## Contributing
 
-PDF.js is an open source project and always looking for more contributors. To
-get involved checkout:
+DigiSign-AuditLog is an open source project.
 
 + [API] disc
 + [Client Agent](https://github.com/pedonline/DigiSign-AuditLog/tree/DigiSign-AuditLog-Client)
