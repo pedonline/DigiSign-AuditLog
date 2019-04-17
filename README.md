@@ -9,4 +9,4 @@ get involved checkout:
 
 + [API] disc
 + [Client Agent](https://github.com/pedonline/DigiSign-AuditLog/tree/DigiSign-AuditLog-Client)
-+ [Exsample](https://github.com/pedonline/DigiSign-AuditLog/tree/DigiSign-AuditLog-jsf)
++ [Example](https://github.com/pedonline/DigiSign-AuditLog/tree/DigiSign-AuditLog-jsf)
