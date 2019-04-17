@@ -1,6 +1,6 @@
 # DigiSign-AuditLog
 
-DigiSign-AuditLog is Digital Signature for Audit Log Framework on Database support on JSF Framework and Hibernate Framework
+DigiSign-AuditLog is a web application framework for Digital Signature on Audit Log in Database, It support on JSF Framework and Hibernate Framework.
 
 ## Contributing
 
