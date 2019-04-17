@@ -1,7 +1,12 @@
 # DigiSign-AuditLog
 
+DigiSign-AuditLog is Digital Signature for Audit Log Framework on Database support on JSF Framework and Hibernate Framework
 
-<p:commandButton id="save" value="#{button.save}" actionListener="#{digiSignDialog.DialogchooseOpen}" immediate="true"  >
-							<f:ajax execute="@form" render="@form" />
-							<p:ajax event="dialogReturn" listener="#{personEdit.onSignAction}" update=":form" />
-</p:commandButton>
+## Contributing
+
+PDF.js is an open source project and always looking for more contributors. To
+get involved checkout:
+
++ [API] no disc
++ [Client Agent](https://github.com/pedonline/DigiSign-AuditLog/tree/DigiSign-AuditLog-Client)
++ [Exsample](https://github.com/pedonline/DigiSign-AuditLog/tree/DigiSign-AuditLog-jsf)
