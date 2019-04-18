@@ -2,7 +2,7 @@
 
 DigiSign-AuditLog is a web application framework for Digital Signature on Audit Log in Database, It support on JSF Framework and Hibernate Framework.
 
-## Contributing
+## Usage
 
 DigiSign-AuditLog is an open source project.
 
@@ -14,7 +14,7 @@ DigiSign-AuditLog is an open source project.
 @Entity
 @Table(name = "Person")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "personID")
-public class Person implements java.io.Serializable, IAuditLog {
+public class Person implements IAuditLog {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +24,7 @@ public class Person implements java.io.Serializable, IAuditLog {
 
 	@Column(name = "Name")
 	private String Name;
-	
-	@Column(name = "LastName")
-	private String LastName;
-		
+
 	@Transient
 	@Override
 	public Long getId() {
