@@ -94,7 +94,6 @@ public class PersonEdit extends DigiSignManageBeanTemplate implements Serializab
 		} catch (InvalidKeyException | UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException
 				| CertificateException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException
 				| IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "person_v";
