@@ -100,10 +100,41 @@ public class PersonEdit extends DigiSignManageBeanTemplate implements Serializab
 	}
 }
 ```
-Save Action 
+XHTML : Add & Edit Page
 ```xml
 <p:commandButton id="save" value="save" actionListener="#{digiSignDialog.DialogchooseOpen}" immediate="true"  >
 	<f:ajax execute="@form" render="@form" />
 	<p:ajax event="dialogReturn" listener="#{personEdit.onSignAction}" update=":form" />
 </p:commandButton>
+```
+XHTML : View Page
+```xml
+<h:panelGrid columns="2" styleClass="gridSearch" columnClasses="colstyle5,colstyle95" style="margin-top:0.5em;">
+	<h:graphicImage id="img_correct" widgetVar="img_correct" value ="/resources/image_new/img_correct_3.png" width="50" rendered="#{personEdit.CBIPerson.isEntityValid}" title="สถานะข้อมูลถูกต้อง"/>
+	<h:graphicImage id="img_wrong" widgetVar="img_wrong" value ="/resources/image_new/img_wrong.png" width="50" rendered="#{!personEdit.CBIPerson.isEntityValid}" title="ไม่รับสถานะข้อมูล"/>
+	<h:panelGroup >
+	<p:fieldset legend="ประวัติของข้อมูล" style="margin-bottom:10px;font-size:0.9em;" rendered="#{not empty personEdit.CBIPerson.digiSignVerifyInfomationList}">	
+	<p:dataTable id="digisigntablelist" value="#{personEdit.CBIPerson.digiSignVerifyInfomationList}" var="digisigndatalist" 
+									paginator="true" rowIndexVar="rowIndex" rowKey="#{digisigndatalist.auditLogId}" 
+									currentPageReportTemplate="ค้นพบ  {totalRecords} รายการ " emptyMessage="ไม่พบข้อมูล" styleClass="dataTableSearch">
+										<p:column headerText="ลำดับ" style="width:5%">
+											<h:outputText value="#{rowIndex+1}" />
+										</p:column>
+										<p:column headerText="สถานะข้อประวัติ" style="width:10%">
+											<h:graphicImage id="img2_correct" widgetVar="img2_correct" value ="/resources/image_new/img_correct_3.png" width="20" rendered="#{digisigndatalist.verified}"/>
+											<h:graphicImage id="img2_wrong" widgetVar="img2_wrong" value ="/resources/image_new/img_wrong.png" width="20" rendered="#{!digisigndatalist.verified}"/>
+										</p:column>
+										<p:column headerText="ผู้ลงนาม" style="width:20%">
+											<h:outputText value="#{digisigndatalist.signName}"  style="padding-left:0.5em;" />
+										</p:column>
+										<p:column headerText="วันที่ลงนาม" style="width:20%">
+											<h:outputText value="#{digisigndatalist.signDate}" converter="hrm.common.converter.DateConverterYYYYMMDDHHmm"  style="padding-left:0.5em;" />
+										</p:column>
+										<p:column headerText="Subject" style="width:30%">
+											<h:outputText value="#{digisigndatalist.certificateDetail.subject}"  style="padding-left:0.5em;" />
+										</p:column>
+								</p:dataTable>				        				
+							</p:fieldset>	
+						</h:panelGroup>
+					</h:panelGrid>
 ```
