@@ -10,6 +10,7 @@ DigiSign-AuditLog is an open source project.
 + [Client Agent](https://github.com/pedonline/DigiSign-AuditLog/tree/DigiSign-AuditLog-Client)
 + [Example](https://github.com/pedonline/DigiSign-AuditLog/tree/DigiSign-AuditLog-jsf)
 
+Hibernate Model
 ```java
 @Entity
 @Table(name = "Person")
