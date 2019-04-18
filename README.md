@@ -45,3 +45,62 @@ public class Person implements IAuditLog {
 	}
 }
 ```
+JSF ManagedBean 
+```java
+@ManagedBean(name = "personEdit")
+@ViewScoped
+public class PersonEdit extends DigiSignManageBeanTemplate implements Serializable {
+	private String className;
+	private String Name;
+
+	public PersonEdit() {
+		// Constructor
+	}
+	
+	@Override
+	public String saveAction() {
+		//saveAction
+		String methodName = "saveAction";
+		try {
+			
+			//Open DigiSign AuditLog Session
+			DigiSignInformation lo_DigiSignInformation  = this.getDigiSignInformation();		
+			AuditLogInterceptor interceptor = new AuditLogInterceptor();			
+			interceptor.setAlias(lo_DigiSignInformation.getDigisignAlias());
+			interceptor.setOTKSign(lo_DigiSignInformation.getDigisignOTK());		
+			interceptor.setOTK(lo_DigiSignInformation.getOTK());		
+			CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
+			InputStream in = new ByteArrayInputStream(Base64.decodeBase64(
+					lo_DigiSignInformation.getDigisignCertificate()));
+			X509Certificate digisigncert = (X509Certificate)certFactory.generateCertificate(in);
+			interceptor.setCertificate(digisigncert);
+			Session MyHSs = DSPOHrmModelUtil.getSession(interceptor);		
+			//Save Person
+			Transaction MyHTs = MyHSs.beginTransaction();							
+			try {
+				Person lo_Person = new Person();
+				lo_Person.setCitizenID(this.CitizenID);
+				lo_Person.setTName(this.TName);
+				lo_Person.setTLastName(this.TLastName);		
+				lo_Person.setType(lo_Person.getType());
+				PersonDAO.Add(MyHSs, lo_Person, LoginUser);
+				MyHTs.commit();
+			} catch (Exception ex) {
+				MyHTs.rollback();
+			}finally {
+				MyHSs.close();
+			}
+			
+			
+			CommonLog.Print(LOG_LEVEL.INFO_LEVEL, className, methodName, "[END]");
+			
+		} catch (InvalidKeyException | UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException
+				| CertificateException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException
+				| IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "person_v";
+	}
+}
+```
