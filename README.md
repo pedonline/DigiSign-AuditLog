@@ -100,3 +100,10 @@ public class PersonEdit extends DigiSignManageBeanTemplate implements Serializab
 	}
 }
 ```
+Save Action 
+```xml
+<p:commandButton id="save" value="save" actionListener="#{digiSignDialog.DialogchooseOpen}" immediate="true"  >
+	<f:ajax execute="@form" render="@form" />
+	<p:ajax event="dialogReturn" listener="#{personEdit.onSignAction}" update=":form" />
+</p:commandButton>
+```
