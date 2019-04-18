@@ -79,10 +79,7 @@ public class PersonEdit extends DigiSignManageBeanTemplate implements Serializab
 			Transaction MyHTs = MyHSs.beginTransaction();							
 			try {
 				Person lo_Person = new Person();
-				lo_Person.setCitizenID(this.CitizenID);
-				lo_Person.setTName(this.TName);
-				lo_Person.setTLastName(this.TLastName);		
-				lo_Person.setType(lo_Person.getType());
+				lo_Person.setName(this.Name);			
 				PersonDAO.Add(MyHSs, lo_Person, LoginUser);
 				MyHTs.commit();
 			} catch (Exception ex) {
