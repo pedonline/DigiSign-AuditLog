@@ -45,6 +45,14 @@ public class Person implements IAuditLog {
 	}
 }
 ```
+Hibernate SessionFactory
+```java
+public static Session getSession(AuditLogInterceptor ae_EmptyInterceptor) throws HibernateException {
+	Session HS = sessionFactory.withOptions().interceptor(ae_EmptyInterceptor).openSession();
+	return HS;
+}
+```
+
 JSF ManagedBean 
 ```java
 @ManagedBean(name = "personEdit")
