@@ -86,13 +86,11 @@ public class PersonEdit extends DigiSignManageBeanTemplate implements Serializab
 				MyHTs.rollback();
 			}finally {
 				MyHSs.close();
-			}
-			
-			
-			CommonLog.Print(LOG_LEVEL.INFO_LEVEL, className, methodName, "[END]");
-			
-		} catch (InvalidKeyException | UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException
-				| CertificateException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException
+			}			
+		} catch (InvalidKeyException | UnrecoverableKeyException | KeyStoreException
+				| NoSuchAlgorithmException
+				| CertificateException | NoSuchPaddingException 
+				| IllegalBlockSizeException | BadPaddingException
 				| IOException e) {
 			e.printStackTrace();
 		}
