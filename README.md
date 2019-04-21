@@ -106,6 +106,36 @@ public class PersonEdit extends DigiSignManageBeanTemplate implements Serializab
 	}
 }
 ```
+ManagedBean : Open Session DigiSign AuditLog	
+```java
+//Open DigiSign AuditLog Session
+DigiSignInformation lo_DigiSignInformation  = this.getDigiSignInformation();		
+AuditLogInterceptor interceptor = new AuditLogInterceptor();			
+interceptor.setAlias(lo_DigiSignInformation.getDigisignAlias());
+interceptor.setOTKSign(lo_DigiSignInformation.getDigisignOTK());		
+interceptor.setOTK(lo_DigiSignInformation.getOTK());		
+CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
+InputStream in = new ByteArrayInputStream(Base64.decodeBase64(
+	lo_DigiSignInformation.getDigisignCertificate()));
+X509Certificate digisigncert = (X509Certificate)certFactory.generateCertificate(in);
+interceptor.setCertificate(digisigncert);
+Session MyHSs = DSPOHrmModelUtil.getSession(interceptor);			
+```
+ManagedBean : Save Object by DigiSign AuditLog	Session
+```java
+//Save Person
+Transaction MyHTs = MyHSs.beginTransaction();							
+try {
+	Person lo_Person = new Person();
+	lo_Person.setName(this.Name);			
+	PersonDAO.Add(MyHSs, lo_Person, LoginUser);
+	MyHTs.commit();
+} catch (Exception ex) {
+	MyHTs.rollback();
+}finally {
+	MyHSs.close();
+}				
+```
 XHTML : Add & Edit Page
 ```xml
 <p:commandButton id="save" value="save" actionListener="#{digiSignDialog.DialogchooseOpen}" immediate="true"  >
